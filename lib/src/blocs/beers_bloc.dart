@@ -14,7 +14,7 @@ class BeersBloc {
     _beersFetcher.sink.add(beers);
   }
 
-  dispose(){
+  dispose() {
     _beersFetcher.close();
   }
 }

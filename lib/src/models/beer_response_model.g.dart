@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'beer_model.dart';
+part of 'beer_response_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Beer _$BeerFromJson(Map<String, dynamic> json) {
-  return Beer(
+BeerResponse _$BeerResponseFromJson(Map<String, dynamic> json) {
+  return BeerResponse(
       id: json['id'] as int,
       name: json['name'] as String,
       tagLine: json['tag_line'] as String,
@@ -33,7 +33,8 @@ Beer _$BeerFromJson(Map<String, dynamic> json) {
       brewersTips: json['brewers_tips'] as String);
 }
 
-Map<String, dynamic> _$BeerToJson(Beer instance) => <String, dynamic>{
+Map<String, dynamic> _$BeerResponseToJson(BeerResponse instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'tag_line': instance.tagLine,

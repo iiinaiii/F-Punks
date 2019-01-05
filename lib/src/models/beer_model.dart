@@ -1,61 +1,76 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'volume_model.dart';
-part 'beer_model.g.dart';
+import 'package:intl/intl.dart';
+import 'package:meta/meta.dart';
 
-class BeerList{
+import 'beer_response_model.dart';
 
-}
-
-@JsonSerializable()
 class Beer {
   int id;
   String name;
-  @JsonKey(name: 'tag_line')
   String tagLine;
-  @JsonKey(name: 'first_brewed')
   String firstBrewed;
   String description;
-  @JsonKey(name: 'image_url')
   String imageUrl;
-  double abv;
-  double ibu;
-  @JsonKey(name: 'target_fg')
-  double targetFg;
-  @JsonKey(name: 'target_og')
-  double targetOg;
-  double ebc;
-  double srm;
-  Volume volume;
-  @JsonKey(name: 'boil_volume')
-  Volume boilVolume;
-  double ph;
-  @JsonKey(name: 'attenuation_level')
-  double attenuationLevel;
-  @JsonKey(name: 'food_pairing')
+  String abv;
+  String ibu;
+  String targetOg;
+  String targetFg;
+  String ebc;
+  String srm;
+  String volume;
+  String boilVolume;
+  String ph;
+  String attenuationLevel;
   List<String> foodPairing;
-  @JsonKey(name: 'brewers_tips')
   String brewersTips;
 
   Beer({
-    this.id,
-    this.name,
-    this.tagLine,
-    this.firstBrewed,
-    this.description,
-    this.imageUrl,
-    this.abv,
-    this.ibu,
-    this.targetFg,
-    this.targetOg,
-    this.ebc,
-    this.srm,
-    this.volume,
-    this.boilVolume,
-    this.ph,
-    this.attenuationLevel,
-    this.foodPairing,
-    this.brewersTips
+    @required this.id,
+    @required this.name,
+    @required this.tagLine,
+    @required this.firstBrewed,
+    @required this.description,
+    @required this.imageUrl,
+    @required this.abv,
+    @required this.ibu,
+    @required this.targetOg,
+    @required this.targetFg,
+    @required this.ebc,
+    @required this.srm,
+    @required this.volume,
+    @required this.boilVolume,
+    @required this.ph,
+    @required this.attenuationLevel,
+    @required this.foodPairing,
+    @required this.brewersTips,
   });
 
-  factory Beer.fromJson(Map<String, dynamic> json) => _$BeerFromJson(json);
+  factory Beer.fromBeerResponse(BeerResponse beerResponse) {
+    return Beer(
+      id: beerResponse.id,
+      name: beerResponse.name,
+      tagLine: beerResponse.tagLine,
+      firstBrewed: DateFormat.yMMMM("en_US").format(DateFormat("MM/yyyy").parse(beerResponse.firstBrewed)).toUpperCase(),
+      description: beerResponse.description,
+      imageUrl: beerResponse.imageUrl,
+      abv: "${toStringOrDefault(beerResponse.abv)}%",
+      ibu: toStringOrDefault(beerResponse.ibu),
+      targetOg: toStringOrDefault(beerResponse.targetOg),
+      targetFg: toStringOrDefault(beerResponse.targetFg),
+      ebc: toStringOrDefault(beerResponse.ebc),
+      srm: toStringOrDefault(beerResponse.srm),
+      volume: beerResponse.volume.toVolumeText(),
+      boilVolume: beerResponse.boilVolume.toVolumeText(),
+      ph: toStringOrDefault(beerResponse.ph),
+      attenuationLevel: toStringOrDefault(beerResponse.attenuationLevel),
+      foodPairing: beerResponse.foodPairing,
+      brewersTips: beerResponse.brewersTips,
+    );
+  }
+}
+
+String toStringOrDefault(double value) {
+  if (value != null) {
+    return value.toString();
+  }
+  return "-";
 }

@@ -1,7 +1,7 @@
+import 'package:f_punks/src/models/beer_model.dart';
 import 'package:flutter/material.dart';
 
 import '../blocs/beers_bloc.dart';
-import '../models/beer_model.dart';
 
 class BeerList extends StatelessWidget {
   @override
@@ -9,7 +9,8 @@ class BeerList extends StatelessWidget {
     bloc.fetchBeers();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Punks'),
+        brightness: Brightness.dark,
+        title: Text('Punks', style: TextStyle(color: Colors.white)),
       ),
       body: StreamBuilder(
           stream: bloc.allBeers,
@@ -39,7 +40,10 @@ class BeerList extends StatelessWidget {
       height: 72,
       child: Row(
         children: [
-          Image.network(beer.imageUrl, width: 40, height: 40),
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Image.network(beer.imageUrl, width: 40, height: 40),
+          ),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -53,6 +57,7 @@ class BeerList extends StatelessWidget {
                 Row(
                   children: [
                     Text(beer.firstBrewed),
+                    Padding(padding: const EdgeInsets.only(left: 16)),
                     Text(beer.abv.toString()),
                   ],
                 )
