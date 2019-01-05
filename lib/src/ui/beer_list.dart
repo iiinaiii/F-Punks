@@ -10,7 +10,7 @@ class BeerList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
-        title: Text('Punks', style: TextStyle(color: Colors.white)),
+        title: Text('F-Punks', style: TextStyle(color: Colors.white)),
       ),
       body: StreamBuilder(
           stream: bloc.allBeers,
@@ -52,6 +52,7 @@ class BeerList extends StatelessWidget {
                 Text(
                   beer.name,
                   maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).primaryTextTheme.headline,
                 ),
                 Row(
