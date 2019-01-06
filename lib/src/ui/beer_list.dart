@@ -1,9 +1,30 @@
 import 'package:f_punks/src/models/beer_model.dart';
+import 'package:f_punks/src/ui/beer_detail.dart';
 import 'package:flutter/material.dart';
 
+import '../blocs/beer_detail_bloc_provider.dart';
 import '../blocs/beers_bloc.dart';
 
-class BeerList extends StatelessWidget {
+class BeerList extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return BeerListState();
+  }
+}
+
+class BeerListState extends State<BeerList> {
+  @override
+  void initState() {
+    super.initState();
+    bloc.fetchBeers();
+  }
+
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     bloc.fetchBeers();
@@ -35,37 +56,53 @@ class BeerList extends StatelessWidget {
   }
 
   Widget buildRow(BuildContext context, Beer beer) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      height: 72,
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: Image.network(beer.imageUrl, width: 40, height: 40),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  beer.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).primaryTextTheme.headline,
-                ),
-                Row(
-                  children: [
-                    Text(beer.firstBrewed),
-                    Padding(padding: const EdgeInsets.only(left: 16)),
-                    Text(beer.abv.toString()),
-                  ],
-                )
-              ],
+    return InkWell(
+      onTap: () => openDetailPage(beer.id),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        height: 72,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: Image.network(beer.imageUrl, width: 40, height: 40),
             ),
-          )
-        ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    beer.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).primaryTextTheme.headline,
+                  ),
+                  Row(
+                    children: [
+                      Text(beer.firstBrewed),
+                      Padding(padding: const EdgeInsets.only(left: 16)),
+                      Text(beer.abv.toString()),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  openDetailPage(int beerId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return BeerDetailBlocProvider(
+            child: BeerDetail(beerId: beerId),
+          );
+        },
       ),
     );
   }
