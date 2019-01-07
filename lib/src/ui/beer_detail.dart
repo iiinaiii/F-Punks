@@ -40,57 +40,145 @@ class BeerDetailState extends State<BeerDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      top: false,
-      bottom: false,
-      child: SingleChildScrollView(
-        child: StreamBuilder(
-            stream: bloc.beerDetail,
-            builder: (context, AsyncSnapshot<Future<Beer>> futureSnapshot) {
-              if (futureSnapshot.hasData) {
-                return FutureBuilder(
-                  future: futureSnapshot.data,
-                  builder: (context, AsyncSnapshot<Beer> snapshot) {
-                    if (snapshot.hasData) {
-                      return buildBeerDetailLayout(snapshot.data);
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  },
-                );
-              } else {
-                return Center(child: CircularProgressIndicator());
-              }
-            }),
+      appBar: AppBar(
+        brightness: Brightness.dark,
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text('F-Punks', style: TextStyle(color: Colors.white)),
       ),
-    ));
+      body: Container(
+        child: SingleChildScrollView(
+          child: StreamBuilder(
+              stream: bloc.beerDetail,
+              builder: (context, AsyncSnapshot<Future<Beer>> futureSnapshot) {
+                if (futureSnapshot.hasData) {
+                  return FutureBuilder(
+                    future: futureSnapshot.data,
+                    builder: (context, AsyncSnapshot<Beer> snapshot) {
+                      if (snapshot.hasData) {
+                        return buildBeerDetailLayout(snapshot.data);
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
+        ),
+      ),
+    );
   }
 
   Widget buildBeerDetailLayout(Beer beer) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        children: [
-          Flexible(child: Image.network(beer.imageUrl, width: 200)),
-          Column(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
             children: [
-              Text(beer.firstBrewed),
-              Row(
-                children: [
-                  Text("ABV"),
-                  Text("IBU"),
-                  Text("OG"),
-                ],
+              Image.network(
+                beer.imageUrl,
+                width: 200,
+                height: 280,
               ),
-              Row(
-                children: [
-                  Text(beer.abv),
-                  Text(beer.ibu),
-                  Text(beer.targetOg),
-                ],
+              Flexible(
+                child: Container(
+                  height: 280,
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          beer.firstBrewed,
+                          style: Theme.of(context).primaryTextTheme.subhead,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "ABV",
+                                  style: Theme.of(context).primaryTextTheme.headline,
+                                ),
+                                Text(
+                                  beer.abv,
+                                  maxLines: 1,
+                                  style: Theme.of(context).primaryTextTheme.title,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "IBU",
+                                  style: Theme.of(context).primaryTextTheme.headline,
+                                ),
+                                Text(
+                                  beer.ibu,
+                                  maxLines: 1,
+                                  style: Theme.of(context).primaryTextTheme.title,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Flexible(
+                            flex: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "OG",
+                                  style: Theme.of(context).primaryTextTheme.headline,
+                                ),
+                                Text(
+                                  beer.targetOg,
+                                  maxLines: 1,
+                                  style: Theme.of(context).primaryTextTheme.title,
+                                  softWrap: false,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  beer.name,
+                  style: Theme.of(context).primaryTextTheme.display2.apply(
+                        color: Colors.black,
+                      ),
+                ),
+                Text(
+                  beer.tagLine,
+                  style: Theme.of(context).primaryTextTheme.display1,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

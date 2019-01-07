@@ -7,7 +7,7 @@ part 'beer_response_model.g.dart';
 class BeerResponse {
   int id;
   String name;
-  @JsonKey(name: 'tag_line')
+  @JsonKey(name: 'tagline')
   String tagLine;
   @JsonKey(name: 'first_brewed')
   String firstBrewed;

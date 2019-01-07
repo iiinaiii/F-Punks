@@ -10,7 +10,7 @@ BeerResponse _$BeerResponseFromJson(Map<String, dynamic> json) {
   return BeerResponse(
       id: json['id'] as int,
       name: json['name'] as String,
-      tagLine: json['tag_line'] as String,
+      tagLine: json['tagline'] as String,
       firstBrewed: json['first_brewed'] as String,
       description: json['description'] as String,
       imageUrl: json['image_url'] as String,
@@ -37,7 +37,7 @@ Map<String, dynamic> _$BeerResponseToJson(BeerResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'tag_line': instance.tagLine,
+      'tagline': instance.tagLine,
       'first_brewed': instance.firstBrewed,
       'description': instance.description,
       'image_url': instance.imageUrl,
