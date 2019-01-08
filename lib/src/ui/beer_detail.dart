@@ -77,7 +77,7 @@ class BeerDetailState extends State<BeerDetail> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
-            children: [
+            children: <Widget>[
               Image.network(
                 beer.imageUrl,
                 width: 200,
@@ -90,7 +90,7 @@ class BeerDetailState extends State<BeerDetail> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Text(
@@ -100,7 +100,7 @@ class BeerDetailState extends State<BeerDetail> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: <Widget>[
                           Flexible(
                             flex: 2,
                             child: Column(
@@ -176,9 +176,92 @@ class BeerDetailState extends State<BeerDetail> {
                   beer.tagLine,
                   style: Theme.of(context).primaryTextTheme.display1,
                 ),
+                buildDetailList(beer),
               ],
             ),
-          )
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildDetailList(Beer beer) {
+    final foodWidgets = List<Widget>();
+    beer.foodPairing.forEach((food) => foodWidgets.add(buildSimpleText(food)));
+    final foodColumn = Column(children: foodWidgets);
+
+    return Column(
+      children: <Widget>[
+        // Description
+        buildHeader("THIS BEER IS"),
+        buildSimpleText(beer.description),
+
+        // Basics
+        buildHeader("BASICS"),
+        buildValue("VOLUME", beer.volume),
+        buildValue("BOIL VOLUME", beer.boilVolume),
+        buildValue("ABV", beer.abv),
+        buildValue("Target FG", beer.targetFg),
+        buildValue("Target OG", beer.targetOg),
+        buildValue("EBC", beer.ebc),
+        buildValue("SRM", beer.srm),
+        buildValue("PH", beer.ph),
+        buildValue("ATTENUATION LEVEL", beer.attenuationLevel),
+
+        // Food pairing
+        buildHeader("FOOD PAIRING"),
+        foodColumn,
+
+        // Brewer's tips
+        buildHeader("BREWER\'S TIPS"),
+        buildSimpleText(beer.brewersTips),
+      ],
+    );
+  }
+
+  Widget buildHeader(String title) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(top: 16, bottom: 8),
+      child: Text(
+        title,
+        style: Theme.of(context).primaryTextTheme.headline,
+      ),
+    );
+  }
+
+  Widget buildSimpleText(String message) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Text(
+        message,
+        style: Theme.of(context).primaryTextTheme.body1,
+      ),
+    );
+  }
+
+  Widget buildValue(String title, String message) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Row(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              title,
+              style: Theme.of(context).primaryTextTheme.subhead,
+            ),
+          ),
+          Flexible(
+            child: Container(
+              alignment: Alignment.centerRight,
+              child: Text(
+                message,
+                style: Theme.of(context).primaryTextTheme.body1,
+              ),
+            ),
+          ),
         ],
       ),
     );
