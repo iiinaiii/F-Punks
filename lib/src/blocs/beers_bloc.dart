@@ -9,8 +9,8 @@ class BeersBloc {
 
   Observable<List<Beer>> get allBeers => _beersFetcher.stream;
 
-  fetchBeers() async {
-    List<Beer> beers = await _repository.fetchBeers();
+  fetchBeers(int page) async {
+    List<Beer> beers = await _repository.fetchBeers(page: page);
     _beersFetcher.sink.add(beers);
   }
 

@@ -13,10 +13,14 @@ class BeerList extends StatefulWidget {
 }
 
 class BeerListState extends State<BeerList> {
+  List<Beer> _beerList = [];
+  int _pageNum = 1;
+  bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
-    bloc.fetchBeers();
+    _fetchBeers();
   }
 
   @override
@@ -27,7 +31,6 @@ class BeerListState extends State<BeerList> {
 
   @override
   Widget build(BuildContext context) {
-    bloc.fetchBeers();
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
@@ -37,8 +40,20 @@ class BeerListState extends State<BeerList> {
           stream: bloc.allBeers,
           builder: (context, AsyncSnapshot<List<Beer>> snapshot) {
             if (snapshot.hasData) {
-              return buildList(snapshot);
+              if (snapshot.data.length > 0) {
+                if (_beerList.contains(snapshot.data[0])) {
+                  return buildList();
+                }
+                _beerList.addAll(snapshot.data);
+                _pageNum++;
+                _isLoading = false;
+                return buildList();
+              } else {
+                _isLoading = false;
+                return buildList();
+              }
             } else if (snapshot.hasError) {
+              _isLoading = false;
               return Text(snapshot.error.toString());
             }
             return Center(child: CircularProgressIndicator());
@@ -46,13 +61,26 @@ class BeerListState extends State<BeerList> {
     );
   }
 
-  Widget buildList(AsyncSnapshot<List<Beer>> snapshot) {
-    return ListView.builder(
-        itemCount: snapshot.data.length,
-        itemBuilder: (BuildContext context, int index) {
-          final beer = snapshot.data[index];
-          return buildRow(context, beer);
-        });
+  Widget buildList() {
+    return Stack(
+      children: <Widget>[
+        NotificationListener(
+          onNotification: onNotification,
+          child: ListView.builder(
+              itemCount: _beerList.length,
+              itemBuilder: (BuildContext context, int index) {
+                final beer = _beerList[index];
+                return buildRow(context, beer);
+              }),
+        ),
+        Visibility(
+          visible: _isLoading,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget buildRow(BuildContext context, Beer beer) {
@@ -92,6 +120,24 @@ class BeerListState extends State<BeerList> {
         ),
       ),
     );
+  }
+
+  _fetchBeers() {
+    if (_isLoading) {
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+    bloc.fetchBeers(_pageNum);
+  }
+
+  bool onNotification(ScrollNotification notification) {
+    if (notification.metrics.extentAfter == 0.0) {
+      _fetchBeers();
+    }
+    return true;
   }
 
   openDetailPage(int beerId) {
