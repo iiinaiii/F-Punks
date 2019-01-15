@@ -93,7 +93,11 @@ class BeerListState extends State<BeerList> {
           children: [
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Image.network(beer.imageUrl, width: 40, height: 40),
+              child: Image.network(
+                beer.imageUrl,
+                width: 40,
+                height: 40,
+              ),
             ),
             Expanded(
               child: Column(
