@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 
 import '../models/beer_model.dart';
-import '../resources/beer_repository.dart';
+import '../data/beer_repository.dart';
 
 class BeersBloc {
   final _repository = BeerRepository();

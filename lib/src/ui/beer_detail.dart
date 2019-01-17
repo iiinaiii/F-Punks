@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../blocs/beer_detail_bloc.dart';
-import '../blocs/beer_detail_bloc_provider.dart';
+import '../domain/beer_detail_bloc.dart';
+import '../domain/beer_detail_bloc_provider.dart';
 import '../models/beer_model.dart';
 
 class BeerDetail extends StatefulWidget {
@@ -80,7 +80,7 @@ class BeerDetailState extends State<BeerDetail> {
             children: <Widget>[
               Image.network(
                 beer.imageUrl,
-                width: 200,
+                width: 180,
                 height: 280,
               ),
               Flexible(
@@ -108,12 +108,16 @@ class BeerDetailState extends State<BeerDetail> {
                               children: <Widget>[
                                 Text(
                                   "ABV",
-                                  style: Theme.of(context).primaryTextTheme.headline,
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline,
                                 ),
                                 Text(
                                   beer.abv,
                                   maxLines: 1,
-                                  style: Theme.of(context).primaryTextTheme.title,
+                                  style:
+                                      Theme.of(context).primaryTextTheme.title,
                                 ),
                               ],
                             ),
@@ -125,12 +129,16 @@ class BeerDetailState extends State<BeerDetail> {
                               children: <Widget>[
                                 Text(
                                   "IBU",
-                                  style: Theme.of(context).primaryTextTheme.headline,
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline,
                                 ),
                                 Text(
                                   beer.ibu,
                                   maxLines: 1,
-                                  style: Theme.of(context).primaryTextTheme.title,
+                                  style:
+                                      Theme.of(context).primaryTextTheme.title,
                                 ),
                               ],
                             ),
@@ -142,12 +150,16 @@ class BeerDetailState extends State<BeerDetail> {
                               children: <Widget>[
                                 Text(
                                   "OG",
-                                  style: Theme.of(context).primaryTextTheme.headline,
+                                  maxLines: 1,
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline,
                                 ),
                                 Text(
                                   beer.targetOg,
                                   maxLines: 1,
-                                  style: Theme.of(context).primaryTextTheme.title,
+                                  style:
+                                      Theme.of(context).primaryTextTheme.title,
                                   softWrap: false,
                                 ),
                               ],
