@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../blocs/beer_detail_bloc_provider.dart';
 import '../blocs/beers_bloc.dart';
+import 'profile.dart';
 
 class BeerList extends StatefulWidget {
   @override
@@ -35,6 +36,13 @@ class BeerListState extends State<BeerList> {
       appBar: AppBar(
         brightness: Brightness.dark,
         title: Text('F-Punks', style: TextStyle(color: Colors.white)),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.info_outline),
+            color: Colors.white,
+            onPressed: () => _openProfilePage(),
+          ),
+        ],
       ),
       body: StreamBuilder(
           stream: bloc.allBeers,
@@ -85,7 +93,7 @@ class BeerListState extends State<BeerList> {
 
   Widget buildRow(BuildContext context, Beer beer) {
     return InkWell(
-      onTap: () => openDetailPage(beer.id),
+      onTap: () => _openDetailPage(beer.id),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         height: 72,
@@ -144,7 +152,7 @@ class BeerListState extends State<BeerList> {
     return true;
   }
 
-  openDetailPage(int beerId) {
+  _openDetailPage(int beerId) {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -154,6 +162,13 @@ class BeerListState extends State<BeerList> {
           );
         },
       ),
+    );
+  }
+
+  _openProfilePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Profile()),
     );
   }
 }
