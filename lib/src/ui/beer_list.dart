@@ -2,8 +2,8 @@ import 'package:f_punks/src/models/beer_model.dart';
 import 'package:f_punks/src/ui/beer_detail.dart';
 import 'package:flutter/material.dart';
 
-import '../blocs/beer_detail_bloc_provider.dart';
-import '../blocs/beers_bloc.dart';
+import '../domain/beer_detail_bloc_provider.dart';
+import '../domain/beers_bloc.dart';
 import 'profile.dart';
 
 class BeerList extends StatefulWidget {
