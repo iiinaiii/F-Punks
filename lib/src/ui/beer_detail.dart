@@ -8,21 +8,29 @@ import '../models/beer_model.dart';
 
 class BeerDetail extends StatefulWidget {
   final int beerId;
+  final String beerName;
 
-  BeerDetail({@required this.beerId});
+  BeerDetail({
+    @required this.beerId,
+    @required this.beerName,
+  });
 
   @override
   State<StatefulWidget> createState() {
-    return BeerDetailState(beerId: beerId);
+    return BeerDetailState(beerId: beerId, beerName: beerName);
   }
 }
 
 class BeerDetailState extends State<BeerDetail> {
   final int beerId;
+  final String beerName;
 
   BeerDetailBloc bloc;
 
-  BeerDetailState({@required this.beerId});
+  BeerDetailState({
+    @required this.beerId,
+    @required this.beerName,
+  });
 
   @override
   void didChangeDependencies() {
@@ -43,7 +51,7 @@ class BeerDetailState extends State<BeerDetail> {
       appBar: AppBar(
         brightness: Brightness.dark,
         iconTheme: IconThemeData(color: Colors.white),
-        title: Text('F-Punks', style: TextStyle(color: Colors.white)),
+        title: Text(beerName, style: TextStyle(color: Colors.white)),
       ),
       body: Container(
         child: SingleChildScrollView(
@@ -109,15 +117,12 @@ class BeerDetailState extends State<BeerDetail> {
                                 Text(
                                   "ABV",
                                   maxLines: 1,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headline,
+                                  style: Theme.of(context).primaryTextTheme.headline,
                                 ),
                                 Text(
                                   beer.abv,
                                   maxLines: 1,
-                                  style:
-                                      Theme.of(context).primaryTextTheme.title,
+                                  style: Theme.of(context).primaryTextTheme.title,
                                 ),
                               ],
                             ),
@@ -130,15 +135,12 @@ class BeerDetailState extends State<BeerDetail> {
                                 Text(
                                   "IBU",
                                   maxLines: 1,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headline,
+                                  style: Theme.of(context).primaryTextTheme.headline,
                                 ),
                                 Text(
                                   beer.ibu,
                                   maxLines: 1,
-                                  style:
-                                      Theme.of(context).primaryTextTheme.title,
+                                  style: Theme.of(context).primaryTextTheme.title,
                                 ),
                               ],
                             ),
@@ -151,15 +153,12 @@ class BeerDetailState extends State<BeerDetail> {
                                 Text(
                                   "OG",
                                   maxLines: 1,
-                                  style: Theme.of(context)
-                                      .primaryTextTheme
-                                      .headline,
+                                  style: Theme.of(context).primaryTextTheme.headline,
                                 ),
                                 Text(
                                   beer.targetOg,
                                   maxLines: 1,
-                                  style:
-                                      Theme.of(context).primaryTextTheme.title,
+                                  style: Theme.of(context).primaryTextTheme.title,
                                   softWrap: false,
                                 ),
                               ],

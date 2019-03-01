@@ -93,7 +93,7 @@ class BeerListState extends State<BeerList> {
 
   Widget buildRow(BuildContext context, Beer beer) {
     return InkWell(
-      onTap: () => _openDetailPage(beer.id),
+      onTap: () => _openDetailPage(beer.id, beer.name),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         height: 72,
@@ -152,13 +152,16 @@ class BeerListState extends State<BeerList> {
     return true;
   }
 
-  _openDetailPage(int beerId) {
+  _openDetailPage(int beerId, String beerName) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) {
           return BeerDetailBlocProvider(
-            child: BeerDetail(beerId: beerId),
+            child: BeerDetail(
+              beerId: beerId,
+              beerName: beerName,
+            ),
           );
         },
       ),
