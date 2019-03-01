@@ -13,6 +13,9 @@ class _ProfileState extends State<Profile> {
   static const avatarUrl = "https://github.com/$gitHubUserName.png";
   static const gitHubUrl = "https://github.com/$gitHubUserName";
   static const twitterUrl = "https://twitter.com/$twitterUserName";
+  static const fPunksUrl = "https://github.com/$gitHubUserName/F-Punks";
+  static const punksUrl = "https://github.com/$gitHubUserName/Punks";
+  static const beersUrl = "http://amzn.asia/il6ksAM";
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +71,22 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
+
+            _buildLinkRow(
+              "F-Punks",
+              "This app's repository. Made with Flutter.",
+              fPunksUrl,
+            ),
+            _buildLinkRow(
+              "Punks",
+              "Same as F-punks, but made with Kotlin.",
+              punksUrl,
+            ),
+            _buildLinkRow(
+              "Give me beers",
+              "Let's drink together.",
+              beersUrl,
+            ),
           ],
         ),
       ),
@@ -86,5 +105,27 @@ class _ProfileState extends State<Profile> {
             animation: CustomTabsAnimation.fade()),
       );
     } catch (e) {}
+  }
+
+  Widget _buildLinkRow(String title, String subtitle, String url) {
+    return InkWell(
+      onTap: () => _openLink(url),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              title,
+              style: Theme.of(context).primaryTextTheme.headline,
+            ),
+            Text(
+              subtitle,
+              style: Theme.of(context).primaryTextTheme.subhead,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
