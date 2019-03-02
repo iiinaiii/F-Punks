@@ -31,8 +31,8 @@ class _ProfileState extends State<Profile> {
           children: <Widget>[
             Center(
               child: Container(
-                width: 120,
-                height: 120,
+                width: 100,
+                height: 100,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
@@ -42,6 +42,13 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Naoki Ishii",
+                style: Theme.of(context).primaryTextTheme.headline,
+              ),
+            ),
             Center(
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -49,10 +56,10 @@ class _ProfileState extends State<Profile> {
                   InkWell(
                     onTap: () => _openLink(gitHubUrl),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                       child: Container(
-                        width: 36,
-                        height: 36,
+                        width: 32,
+                        height: 32,
                         child: Image.asset('images/icon_github.png'),
                       ),
                     ),
@@ -60,10 +67,10 @@ class _ProfileState extends State<Profile> {
                   InkWell(
                     onTap: () => _openLink(twitterUrl),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                       child: Container(
-                        width: 36,
-                        height: 36,
+                        width: 32,
+                        height: 32,
                         child: Image.asset('images/icon_twitter.png'),
                       ),
                     ),
@@ -71,7 +78,6 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-
             _buildLinkRow(
               "F-Punks",
               "This app's repository. Made with Flutter.",
