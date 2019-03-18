@@ -50,8 +50,7 @@ class BeerDetailState extends State<BeerDetail> {
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
-        iconTheme: IconThemeData(color: Colors.white),
-        title: Text(beerName, style: TextStyle(color: Colors.white)),
+        title: Text(beerName),
       ),
       body: Container(
         child: SingleChildScrollView(

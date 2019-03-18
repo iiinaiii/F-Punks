@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../domain/beer_detail_bloc_provider.dart';
 import '../domain/beers_bloc.dart';
-import 'profile.dart';
+import 'information.dart';
 
 class BeerList extends StatefulWidget {
   @override
@@ -35,11 +35,10 @@ class BeerListState extends State<BeerList> {
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.dark,
-        title: Text('F-Punks', style: TextStyle(color: Colors.white)),
+        title: Text('F-Punks'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.info_outline),
-            color: Colors.white,
             onPressed: () => _openProfilePage(),
           ),
         ],
