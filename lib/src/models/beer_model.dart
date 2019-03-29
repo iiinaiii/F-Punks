@@ -49,9 +49,9 @@ class Beer {
       id: beerResponse.id,
       name: beerResponse.name,
       tagLine: beerResponse.tagLine,
-      firstBrewed: DateFormat.yMMMM("en_US").format(DateFormat("MM/yyyy").parse(beerResponse.firstBrewed)).toUpperCase(),
+      firstBrewed: toDateOrDefault(beerResponse.firstBrewed),
       description: beerResponse.description,
-      imageUrl: beerResponse.imageUrl,
+      imageUrl: toImageUrlOrDefault(beerResponse.imageUrl),
       abv: "${toStringOrDefault(beerResponse.abv)}%",
       ibu: toStringOrDefault(beerResponse.ibu),
       targetOg: toStringOrDefault(beerResponse.targetOg),
@@ -66,6 +66,26 @@ class Beer {
       brewersTips: beerResponse.brewersTips,
     );
   }
+}
+
+String toDateOrDefault(String date) {
+  if (date != null) {
+    DateFormat dateFormat;
+    String formatStr;
+    if (date.length == 4) {
+      dateFormat = DateFormat.y("en_US");
+      formatStr = "yyyy";
+    } else {
+      dateFormat = DateFormat.yMMMM("en_US");
+      formatStr = "MM/yyyy";
+    }
+    return dateFormat.format(DateFormat(formatStr).parse(date)).toUpperCase();
+  }
+  return "-";
+}
+
+String toImageUrlOrDefault(String imageUrl) {
+  return imageUrl ?? "https://images.punkapi.com/v2/keg.png";
 }
 
 String toStringOrDefault(double value) {
