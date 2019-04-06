@@ -20,6 +20,8 @@ class _ProfileState extends State<Profile> {
   static const punksUrl = "https://github.com/$gitHubUserName/Punks";
   static const beersUrl = "http://amzn.asia/il6ksAM";
 
+  String versionName;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -107,6 +109,7 @@ class _ProfileState extends State<Profile> {
             onTap: () => showLicensePage(
                   context: context,
                   applicationName: "F-Punks",
+                  applicationVersion: versionName,
                 ),
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -132,7 +135,8 @@ class _ProfileState extends State<Profile> {
 
   Future<String> _getVersionName() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.version;
+    versionName = packageInfo.version;
+    return versionName;
   }
 
   Widget _buildProfile() {
